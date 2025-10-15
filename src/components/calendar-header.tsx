@@ -57,12 +57,13 @@ export function CalendarHeader() {
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-1.5">
           <UserSelect />
-          <AddEditEventDialog>
-            <Button variant="default">
-              <Plus className="h-4 w-4" />
-              Agendar Consulta
-            </Button>
-          </AddEditEventDialog>
+          <Button
+            variant="default"
+            onClick={() => (window.location.href = "/agendar")}
+          >
+            <Plus className="h-4 w-4" />
+            Agendar Consulta
+          </Button>
         </div>
         <Settings />
       </motion.div>

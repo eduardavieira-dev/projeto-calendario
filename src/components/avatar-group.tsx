@@ -29,7 +29,7 @@ const AvatarGroup = ({
 		>
 			{remainingAvatars > 0 && (
 				<Avatar className="-ml-2 hover:z-10 relative ring-2 ring-background">
-					<AvatarFallback className="bg-muted-foreground text-white">
+					<AvatarFallback className="bg-purple-500 text-white">
 						+{remainingAvatars}
 					</AvatarFallback>
 				</Avatar>

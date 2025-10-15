@@ -2,9 +2,10 @@
 
 import { format, parseISO } from "date-fns";
 import { Calendar, Clock, Text, User } from "lucide-react";
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { DeleteConfirmationDialog } from "@/components/delete-confirmation-dialog";
 import {
   Dialog,
   DialogClose,
@@ -28,15 +29,8 @@ export function EventDetailsDialog({ event, children }: IProps) {
   const startDate = parseISO(event.startDate);
   const endDate = parseISO(event.endDate);
   const { use24HourFormat, removeEvent } = useCalendar();
-
-  const deleteEvent = (eventId: number) => {
-    try {
-      removeEvent(eventId);
-      toast.success("Consulta excluída com sucesso.");
-    } catch {
-      toast.error("Erro ao excluir a consulta.");
-    }
-  };
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
 
   return (
     <Dialog>
@@ -87,26 +81,36 @@ export function EventDetailsDialog({ event, children }: IProps) {
               <div>
                 <p className="text-sm font-medium">Descrição</p>
                 <p className="text-sm text-muted-foreground">
-                  {event.description}
+                  {event.observation}
                 </p>
               </div>
             </div>
           </div>
         </ScrollArea>
-        <div className="flex justify-end gap-2">
-          <AddEditEventDialog event={event}>
-            <Button variant="outline">Editar</Button>
-          </AddEditEventDialog>
+        <div className="flex items-center justify-between gap-2">
           <Button
             variant="destructive"
-            onClick={() => {
-              deleteEvent(event.id);
-            }}
+            onClick={() => setIsDeleteConfirmationOpen(true)}
           >
-            Delete
+            Cancelar Consulta
           </Button>
+          <div className="flex gap-2">
+            <AddEditEventDialog event={event}>
+              <Button variant="default">Editar</Button>
+            </AddEditEventDialog>
+          </div>
         </div>
         <DialogClose />
+
+        <DeleteConfirmationDialog
+          isOpen={isDeleteConfirmationOpen}
+          onConfirm={() => {
+            removeEvent(event.id);
+            toast.success("Consulta cancelada com sucesso");
+            setIsDeleteConfirmationOpen(false);
+          }}
+          onCancel={() => setIsDeleteConfirmationOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

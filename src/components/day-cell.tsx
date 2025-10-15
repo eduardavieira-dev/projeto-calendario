@@ -8,7 +8,7 @@ import { useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { staggerContainer, transition } from "@/components/animations";
 import { EventListDialog } from "@/components/events-list-dialog";
-import { DroppableArea } from "@/components/droppable-area";
+
 import { getMonthCellEvents } from "@/components/helpers";
 import { useMediaQuery } from "@/components/hooks";
 import type { ICalendarCell, IEvent } from "@/components/interfaces";
@@ -119,7 +119,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...transition, type: "spring" }}
       >
-        <DroppableArea date={date} className="w-full h-full py-2">
+        <div className="w-full h-full py-2">
           <motion.span
             className={cn(
               "h-6 px-1 text-xs font-semibold lg:px-2",
@@ -139,7 +139,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
           >
             {cellEvents.length === 0 && !isMobile ? (
               <div className="w-full h-full flex justify-center items-center group">
-                <AddEditEventDialog startDate={date}>
+                {/* <AddEditEventDialog startDate={date}>
                   <Button
                     variant="ghost"
                     className="border opacity-0 group-hover:opacity-100 transition-opacity duration-200"
@@ -147,7 +147,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
                     <Plus className="h-4 w-4" />
                     <span className="max-sm:hidden">Agendar</span>
                   </Button>
-                </AddEditEventDialog>
+                </AddEditEventDialog> */}
               </div>
             ) : (
               [0, 1, 2].map(renderEventAtPosition)
@@ -175,7 +175,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
               <EventListDialog date={date} events={cellEvents} />
             </motion.div>
           )}
-        </DroppableArea>
+        </div>
       </motion.div>
     ),
     [

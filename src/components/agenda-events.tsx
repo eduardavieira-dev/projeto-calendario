@@ -95,7 +95,7 @@ export const AgendaEvents: FC = () => {
                           {event.title}
                         </p>
                         <p className="text-muted-foreground text-sm line-clamp-1 text-ellipsis md:text-clip w-1/3">
-                          {event.description}
+                          {event.observation}
                         </p>
                       </div>
                     </div>

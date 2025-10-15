@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
